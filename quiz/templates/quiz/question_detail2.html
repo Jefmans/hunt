@@ -1,0 +1,61 @@
+
+
+
+
+
+{% extends 'base.html' %}
+
+{% block title %} {{meta_title}} {% endblock title %}
+
+
+{% block content %}
+<h1> {{ question.title }} </h1>
+
+<p>{{ question.description }}</p>
+
+
+
+
+
+{% if question.question_type == 0 %}
+
+
+<form method="POST">
+	{% csrf_token %}
+	<div class="row">
+		{% for answer in answers %}	
+		<div class="col-md-6 mt-2 mb-2">
+			<div class="form-check">	
+				<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+				<label class="form-check-label" for="flexRadioDefault1">
+					{{answer.answer_title}}
+				</label>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+	<button type="submit" class="btn btn-primary">Stuur door</button>
+</form>
+
+<p></p>
+
+
+
+{% else %}
+
+<form method="POST">
+	{% csrf_token %}
+	<div class="mb-3">
+		<input type="text" class="form-control" id="answer" aria-describedby="answerlHelp">
+		<div id="answerlHelp" class="form-text">Schrijf je antwoord in dit veld</div>
+	</div>
+	<button type="submit" class="btn btn-primary">Stuur door</button>
+</form>
+
+
+
+{% endif %}
+
+
+
+{% endblock content %}

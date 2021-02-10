@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %} {{meta_title}} {% endblock title %}
+
+
+{% block content %}
+<h1>Open Quizzen</h1>
+
+<div class="row">
+	{% for quiz in quizzes %}
+	{% if quiz not in registered_quizzes %}
+	<div class="col-md-4 mt-2 mb-2">
+		<div class="card">
+			<div class="card-body"> 
+				<div class="card-title"> {{quiz.title}} </div>
+				<p>{{ quiz.start_date }}</p>
+				<a href="{% url 'quiz:quiz' slug=quiz.slug %}" class="btn btn-primary">Check Quiz </a>
+			</div>	
+		</div>
+	</div>
+	{% endif %}
+	{% endfor %}
+</div>
+
+{% if user.is_authenticated %}
+<div class="row  mt-4 mb-4">
+	<h2>
+		<a href="{% url 'quiz:my_quiz_list' %}">Check mijn Inschrijvingen</a>
+	</h2>
+</div>
+{% endif %}
+
+
+
+{% endblock content %}

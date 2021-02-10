@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %} {{meta_title}} {% endblock title %}
+
+
+{% block content %}
+
+<h1>{{ question.title }}</h1>
+
+<p>{{ question.description }}</p>
+{% if saved_answer.is_still_closed %} 
+<h2>You can try again in <span class="badge bg-secondary">{{ timer|timeuntil }}</span></h2>
+{% endif %}
+
+<form method="POST">
+	{% csrf_token %}
+	<div class="row">
+		<div class="col-md-6 mt-2 mb-2">
+			{{form}}
+		</div>
+	</div>
+	<button class="btn btn-primary {% if saved_answer.is_still_closed %} disabled {% endif %}" type="submit" value="select" name=""> Stuur Antwoord </button>
+</form>
+
+
+{% endblock content %}

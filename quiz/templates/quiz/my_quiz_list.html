@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %} {{meta_title}} {% endblock title %}
+
+
+{% block content %}
+	<h1>Mijn Quizzen</h1>
+
+
+	<div class="row">
+		{% for quiz in quizzes %}
+
+		<div class="col-md-4 mt-2 mb-2">
+			<div class="card">
+				<div class="card-body"> 
+					<div class="card-title"> {{quiz.registered_quiz.title}} </div>
+					<p>{{ quiz.registered_quiz.start_date }}</p>
+					{% if quiz.is_finished %}
+					<a href="" class="btn btn-primary disabled">Opgelost</a>
+					{% else %}
+					<a href="{% url 'quiz:question' quiz_slug=quiz.registered_quiz.slug slug=quiz.current_question.slug %}" class="btn btn-primary">Ga Verder</a>
+
+					{% endif %}
+				</div>	
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+
+
+<div class="row  mt-4 mb-4">
+	<h2>
+		<a href="{% url 'quiz:quiz_list' %}">Check Openstaande Quizzen</a>
+	</h2>
+</div>
+
+{% endblock content %}
