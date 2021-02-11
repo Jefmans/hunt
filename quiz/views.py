@@ -76,39 +76,6 @@ class QuizDetailView(DetailView):
 		return context 
 
 
-# def start_new_quiz(request, slug):
-# 	# print('SLUG SLUG SLUG SLUG SLUG SLUG', slug)
-# 	quiz = Quiz.objects.get(slug=slug)
-# 	# print('QUIZ QUIZ quiz quiz', quiz)
-# 	if request.user.is_authenticated:
-# 		user = User.objects.get(username = request.user)
-
-
-# 		# print('&&&&&&&&&&&&&&&', Question.objects.filter(quiz__title=quiz.title))
-
-# 		try:
-# 			# print('-------------1----------------')
-# 			UserRegisteredQuizzes.objects.get(user=user)
-# 		except:
-# 			# print('-------------2----------------')
-# 			saved_user = UserRegisteredQuizzes(user=user, registered_quiz=quiz)
-# 		try:
-# 			# print('-------------3----------------')
-# 			# saved_user = UserRegisteredQuizzes.objects.filter(user=user).get(registered_quiz=quiz)
-# 			saved_user = get_object_or_404(UserRegisteredQuizzes, user=user, registered_quiz=quiz)
-# 		except:
-# 			# print('-------------4----------------')
-# 			saved_user = UserRegisteredQuizzes(user=user, registered_quiz=quiz)
-# 		# print(quiz, user, saved_user)
-# 		saved_user.save()
-# 		# print(quiz.slug, saved_user.current_question.slug)
-		
-# 		return redirect('quiz:question', quiz_slug=quiz.slug, slug=saved_user.current_question.slug)
-
-# 	else:
-# 		return redirect('quiz:quiz_list')
-
-
 @login_required
 def start_new_quiz(request, slug):
 	# print('SLUG SLUG SLUG SLUG SLUG SLUG', slug)
@@ -118,17 +85,17 @@ def start_new_quiz(request, slug):
 
 	try:
 		# print('-------------1----------------')
-		UserRegisteredQuizzes.objects.get(user=user)
+		UserRegisteredQuizzes.objects.get(user=request.user)
 	except:
 		# print('-------------2----------------')
-		saved_user = UserRegisteredQuizzes(user=user, registered_quiz=quiz)
+		saved_user = UserRegisteredQuizzes(user=request.user, registered_quiz=quiz)
 	try:
 		# print('-------------3----------------')
 		# saved_user = UserRegisteredQuizzes.objects.filter(user=user).get(registered_quiz=quiz)
 		saved_user = get_object_or_404(UserRegisteredQuizzes, user=user, registered_quiz=quiz)
 	except:
 		# print('-------------4----------------')
-		saved_user = UserRegisteredQuizzes(user=user, registered_quiz=quiz)
+		saved_user = UserRegisteredQuizzes(user=request.user, registered_quiz=quiz)
 	# print(quiz, user, saved_user)
 	saved_user.save()
 	# print(quiz.slug, saved_user.current_question.slug)

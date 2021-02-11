@@ -29,12 +29,12 @@
 
 				{% if user.is_authenticated %}
 				<li class="nav-item">
-					<a class="nav-link {% if request.path == 'accounts/login/' %} active {% endif %} " aria-current="page" href="{% url 'account_login' %}">Log In</a>
-				</li>
-				<li class="nav-item">
 					<a class="nav-link {% if request.path == 'accounts/logout/' %} active {% endif %} " aria-current="page" href="{% url 'account_logout' %}">Log Out</a>
 				</li>
 				{% else %}
+				<li class="nav-item">
+					<a class="nav-link {% if request.path == 'accounts/login/' %} active {% endif %} " aria-current="page" href="{% url 'account_login' %}">Log In</a>
+				</li>
 				<li class="nav-item">
 					<a class="nav-link {% if request.path == 'accounts/signup/' %} active {% endif %} " aria-current="page" href="{% url 'account_signup' %}">Registreer</a>
 				</li>
